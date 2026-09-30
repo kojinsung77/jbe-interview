@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>전북 면접사례 검색</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d4ed8'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='700'%3E면%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- 잠금 화면 -->
+<section id="lock" class="lock">
+  <form id="lockForm" class="lock-card" autocomplete="off">
+    <div class="lock-badge">면</div>
+    <h1>전북 면접사례 검색</h1>
+    <p class="muted">전북특별자치도교육청 면접사례모음집 · 교내 상담용</p>
+    <label class="sr" for="pw">비밀번호</label>
+    <input id="pw" type="password" placeholder="비밀번호" autocomplete="current-password" required>
+    <label class="check"><input id="remember" type="checkbox"> 이 기기에서 기억하기</label>
+    <button id="unlockBtn" type="submit">들어가기</button>
+    <p id="lockMsg" class="lock-msg" role="alert"></p>
+  </form>
+</section>
+
+<!-- 앱 -->
+<div id="app" class="app" hidden>
+  <header class="top">
+    <div class="brand">
+      <span class="logo">면</span>
+      <div>
+        <strong>전북 면접사례 검색</strong>
+        <small id="stats" class="muted"></small>
+      </div>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <input id="q" type="search" placeholder="대학, 학과, 질문 키워드 (예: 전북대 미분)" autocomplete="off" enterkeyhint="search">
+      <kbd>/</kbd>
+    </div>
+    <div class="top-actions">
+      <button id="lockBtn" class="ghost" title="잠그기">잠그기</button>
+    </div>
+  </header>
+
+  <nav class="filters" aria-label="필터">
+    <div class="chips" id="groupChips"></div>
+    <div class="selects">
+      <select id="fYear" aria-label="연도"></select>
+      <select id="fUniv" aria-label="대학"></select>
+      <select id="fForm" aria-label="면접 형식"></select>
+      <label class="toggle"><input id="fHasQ" type="checkbox"> 문항 정리된 사례만</label>
+      <label class="toggle"><input id="fFav" type="checkbox"> ★ 즐겨찾기</label>
+      <button id="resetBtn" class="ghost small">초기화</button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <section class="list-pane">
+      <div class="list-head">
+        <div class="seg" role="tablist">
+          <button id="modeCase" role="tab" class="on">사례</button>
+          <button id="modeQ" role="tab">질문</button>
+        </div>
+        <span id="count" class="muted"></span>
+      </div>
+      <div id="list" class="list" tabindex="-1"></div>
+    </section>
+
+    <section id="detail" class="detail-pane" aria-live="polite">
+      <div class="empty" id="emptyDetail">
+        <p><strong>사례를 선택하세요</strong></p>
+        <p class="muted">왼쪽 목록에서 카드를 누르면 면접 정보와 원본 PDF가 여기에 열립니다.</p>
+        <p class="muted small">단축키: <kbd>/</kbd> 검색 · <kbd>←</kbd><kbd>→</kbd> 이전/다음 · <kbd>Esc</kbd> 닫기</p>
+      </div>
+      <article id="detailBody" hidden>
+        <div class="d-head">
+          <button id="backBtn" class="ghost back" aria-label="목록으로">← 목록</button>
+          <div class="d-title">
+            <div class="d-sub" id="dSub"></div>
+            <h2 id="dTitle"></h2>
+          </div>
+          <div class="d-actions">
+            <button id="prevBtn" class="ghost icon" title="이전 결과 (←)">‹</button>
+            <button id="nextBtn" class="ghost icon" title="다음 결과 (→)">›</button>
+            <button id="favBtn" class="ghost icon" title="즐겨찾기">☆</button>
+            <button id="linkBtn" class="ghost icon" title="링크 복사">🔗</button>
+          </div>
+        </div>
+        <div class="tabs" role="tablist">
+          <button id="tabInfo" role="tab" class="on">면접 내용</button>
+          <button id="tabPdf" role="tab">원본 PDF</button>
+        </div>
+        <div id="infoView" class="info-view"></div>
+        <div id="pdfView" class="pdf-view" hidden>
+          <div class="pdf-bar">
+            <button id="zoomOut" class="ghost icon" title="축소">−</button>
+            <span id="zoomVal">100%</span>
+            <button id="zoomIn" class="ghost icon" title="확대">+</button>
+            <button id="zoomFit" class="ghost small">폭 맞춤</button>
+            <span class="spacer"></span>
+            <span id="pdfInfo" class="muted small"></span>
+            <button id="pdfOpen" class="ghost small">새 탭</button>
+            <button id="pdfDown" class="ghost small">내려받기</button>
+          </div>
+          <div id="pdfPages" class="pdf-pages"></div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="foot muted small">
+    자료: 전북특별자치도교육청 대입 면접사례모음집 · 교내 진학 상담용 · 외부 공유 금지
+    <span id="built"></span>
+  </footer>
+</div>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

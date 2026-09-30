@@ -1,0 +1,8 @@
+{
+ "v": 1,
+ "kdf": "PBKDF2-SHA256",
+ "iter": 250000,
+ "salt": "y0CYD2VmpU+58PM6mkOXrQ==",
+ "check": "SkJFMV6tBQkQlX+LKA92vtmS2w6Ldgt5PUypGP7oMxC1OJkZu8d3IQF/wUqTgXOt",
+ "built": "2026-09-30"
+}
