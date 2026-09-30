@@ -78,7 +78,8 @@
     S.stats = payload.stats || {};
     S.cases.forEach((c, i) => {
       c.i = i;
-      c.metaHay = norm([c.univ, c.dept, c.adm, c.group, c.year, c.gkey].join(' '));
+      const alias = u => [u.replace('교육대', '교대'), u.replace('외국어대', '외대'), u.replace('과학기술대', '과기대'), u.replace('여자대', '여대'), u.replace(/^국립/, ''), u.replace(/대$/, '대학교'), u.replace(/대(\(.+\))$/, '대학교$1')].join(' ');
+      c.metaHay = norm([c.univ, alias(c.univ), c.dept, c.adm, c.group, c.year, c.gkey].join(' '));
       c.metaNs = nospace(c.metaHay);
       const sq = /_(\d+)\.pdf$/.exec(c.fn); c.seq = sq ? +sq[1] : 0;
       const parts = [];
@@ -487,9 +488,16 @@
     } catch (err) {
       $('#lockMsg').textContent = err.message || '열지 못했습니다.';
       $('#pw').select();
-    } finally { btn.disabled = false; btn.textContent = '들어가기'; }
+    } finally { btn.disabled = false; btn.textContent = '자료실 열기'; }
   });
   $('#lockBtn').onclick = () => { store.del(LS.key); location.hash = ''; location.reload(); };
+
+  $('#pwToggle').onclick = () => {
+    const i = $('#pw'), show = i.type === 'password';
+    i.type = show ? 'text' : 'password';
+    $('#pwToggle').textContent = show ? '숨김' : '표시';
+    i.focus();
+  };
 
   boot();
 })();
