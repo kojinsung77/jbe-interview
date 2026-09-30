@@ -5,7 +5,7 @@
   --accent:var(--teal); --accent-soft:var(--mint); --accent-ink:var(--teal-dark);
   --hl:#fff0ad; --star:#ad662e; --danger:#a03d2c;
   --radius:12px; --shadow:0 1px 2px rgba(22,44,59,.05),0 1px 3px rgba(22,44,59,.07);
-  --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --font:Inter,"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   color-scheme:light;
 }
 *{box-sizing:border-box}
@@ -36,13 +36,14 @@ mark{background:var(--hl);color:inherit;border-radius:3px;padding:0 1px}
 .gate-access{padding:64px 12%;background:#fcfdfd;display:flex;flex-direction:column;justify-content:center}
 .gate-access form{margin:auto 0;max-width:410px;width:100%;align-self:center}
 .gate-access .eyebrow{color:var(--teal)}
-.gate-access h2{font-size:2rem;letter-spacing:-.05em;margin:15px 0 12px}
+.gate-access h2{font-weight:700;font-size:2rem;letter-spacing:-.05em;margin:15px 0 12px}
 .gate-access p{color:var(--muted);font-size:.9375rem;margin:0}
 .gate-access label[for=pw]{display:block;font-size:.875rem;font-weight:650;margin:36px 0 10px}
 .password-wrap{display:flex;align-items:center;border:1px solid #b8c9cd;border-radius:9px;background:#fff;padding:4px 8px 4px 0}
 .password-wrap:focus-within{border-color:var(--teal);box-shadow:0 0 0 3px var(--mint)}
 .password-wrap input{border:0;background:transparent;flex:1;width:100%;padding:12px;font-size:16px;outline:0}
-.password-wrap button{border:0;background:transparent;color:var(--muted);font-size:.875rem;padding:6px 8px}
+.password-wrap button{border:0;background:transparent;color:var(--muted);font-size:.875rem;font-weight:600;padding:7px 12px;border-radius:7px}
+.password-wrap button:hover{background:var(--mint)}
 .check{display:flex;gap:8px;align-items:center;font-size:.875rem;color:var(--ink2);margin-top:14px}
 .check input{accent-color:var(--teal)}
 button.primary{background:var(--teal);border:1px solid var(--teal);color:#fff;border-radius:9px;font-weight:650;font-size:1rem}
@@ -50,7 +51,7 @@ button.primary:hover{background:var(--teal-dark)}
 button.primary:disabled{opacity:.65}
 .login-button{margin-top:16px;width:100%;padding:14px}
 .form-status{min-height:1.5em;margin:12px 0!important;font-size:.875rem!important;color:var(--danger)!important}
-.security-note{border-top:1px solid var(--line);padding-top:24px;display:flex;align-items:flex-start;gap:12px;margin-top:20px;color:var(--teal)}
+.security-note{border-top:1px solid var(--line);padding-top:24px;display:flex;align-items:flex-start;gap:12px;margin-top:20px;color:var(--ink)}
 .security-note p{font-size:.8125rem!important;line-height:1.8}
 .gate-access footer{font-size:.75rem;color:#7a878c;margin-top:40px;text-align:center;line-height:1.8}
 @media (max-width:760px){
@@ -60,7 +61,7 @@ button.primary:disabled{opacity:.65}
   .gate-copy h1{font-size:2rem;margin:12px 0}
   .gate-copy p,.gate-index,.gate-brand-foot{display:none}
   .gate-access{padding:38px 27px;min-height:55svh}
-  .gate-access h2{font-size:1.6rem}
+  .gate-access h2{font-weight:700;font-size:1.6rem}
   .gate-access label[for=pw]{margin-top:23px}
   .gate-access footer{margin-top:34px}
   .gate .eyebrow{font-size:.6875rem}

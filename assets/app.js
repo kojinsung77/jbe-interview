@@ -482,7 +482,7 @@
       if (!(await checkKey(k))) throw new Error('비밀번호가 맞지 않습니다.');
       KEY = k;
       const raw = toB64(await crypto.subtle.exportKey('raw', k));
-      store.set(LS.key, raw, $('#remember').checked ? localStorage : sessionStorage);
+      store.set(LS.key, raw, sessionStorage);
       btn.textContent = '데이터 여는 중…';
       await loadAll();
     } catch (err) {
