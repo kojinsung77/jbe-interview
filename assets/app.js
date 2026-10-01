@@ -69,7 +69,7 @@
     clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 1800);
   }
   const pagesText = c => c.srcPages ? (c.srcPages[0] === c.srcPages[1] ? `${c.srcPages[0]}쪽` : `${c.srcPages[0]}~${c.srcPages[1]}쪽`) : '';
-  const bookText = c => c.bookPages ? (c.bookPages[0] === c.bookPages[1] ? `책자 ${c.bookPages[0]}쪽` : `책자 ${c.bookPages[0]}~${c.bookPages[1]}쪽`) : '';
+  const bookText = c => c.bookPages ? `책자 ${c.bookVol ? c.bookVol + ' ' : ''}${c.bookPages[0] === c.bookPages[1] ? c.bookPages[0] : c.bookPages[0] + '~' + c.bookPages[1]}쪽` : '';
   const qCount = c => (c.qs || []).reduce((n, q) => n + 1 + (q.followups || []).length, 0);
 
   /* ---------- 데이터 준비 ---------- */
@@ -256,7 +256,7 @@
       ['대학', c.univ], ['학과', c.dept], ['전형', c.adm],
       ['면접 형식', (iv.form || []).join(', ')], ['대면 방식', (iv.mode || []).join(', ')],
       ['면접 비율', iv.ratio], ['시간', iv.time], ['세부 방법', iv.method],
-      ['원본', [c.fn, pagesText(c), bookText(c)].filter(Boolean).join(' · ')],
+      ['원본', bookText(c) || pagesText(c)],
     ].filter(r => r[1]);
     let h = `<dl class="info-grid">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${hl(v)}</dd>`).join('')}</dl>`;
     if (c.qs && c.qs.length) {
@@ -323,7 +323,7 @@
     const my = ++P.token;
     P.id = c.id; P.doc = null; P.zoom = 1;
     if (P.url) { URL.revokeObjectURL(P.url); P.url = null; }
-    $('#pdfInfo').textContent = [pagesText(c) && `원본 ${pagesText(c)}`, bookText(c)].filter(Boolean).join(' · ');
+    $('#pdfInfo').textContent = bookText(c) ? `원본 : ${bookText(c)}` : (pagesText(c) && `원본 ${pagesText(c)}`);
     if (!c.pdf) { box.innerHTML = '<div class="pdf-msg">이 사례의 PDF가 아직 올라가지 않았습니다.</div>'; return; }
     box.innerHTML = '<div class="spin"></div>';
     try {

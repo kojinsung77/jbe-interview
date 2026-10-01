@@ -58,6 +58,11 @@ def sha(path):
     return h.hexdigest()
 
 
+def _pages(v):
+    ns = [int(x) for x in re.findall(r"\d+", str(v or ""))]
+    return [ns[0], ns[-1]] if ns else None
+
+
 def load_list(src):
     xl = sorted(glob.glob(os.path.join(src, "사례목록_*_전체.xlsx")))
     if not xl:
@@ -78,6 +83,8 @@ def load_list(src):
             univ=r[col["대학"]], dept=r[col["학과"]], adm=r[col["전형"]],
             src_pages=[int(a), int(b or a)] if a.isdigit() else None,
             npages=int(r[col["쪽수"]] or 0),
+            book_pages=_pages(r[col["책자 쪽"]]) if "책자 쪽" in col else None,
+            book_vol=str(r[col["책자 권"]] or "").strip() if "책자 권" in col else "",
         ))
     return out
 
@@ -139,10 +146,14 @@ def main():
                 "fn": it["fn"], "srcPages": it["src_pages"], "npages": it["npages"],
                 "pdf": None,
             }
+            if it["book_pages"]:
+                rec["bookPages"] = it["book_pages"]
+            if it.get("book_vol"):
+                rec["bookVol"] = it["book_vol"]
             if c:
                 n_json += 1
                 rec.update({
-                    "bookPages": c.get("pages", {}).get("book"),
+                    "bookPages": it["book_pages"] or c.get("pages", {}).get("book"),
                     "iv": c.get("interview", {}), "intro": c.get("intro_note", ""), "passage": c.get("passage", ""),
                     "qs": c.get("questions", []), "etc": c.get("etc", ""),
                 })
